@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    text-align: center;
+
+    background-color: black;
+    color: white;
+
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.question {
+    color: green;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
