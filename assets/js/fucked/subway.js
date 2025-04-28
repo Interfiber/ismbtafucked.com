@@ -45,7 +45,7 @@ async function loadSubwayData(provider, element) {
         let informed = attrs["informed_entity"];
 
         if (informed.length == 0) continue;
-        if (attrs["lifecycle"] != "NEW") continue;
+        if (attrs["lifecycle"] != "NEW" && attrs["lifecycle"] != "ONGOING") continue;
 
         let route = informed[0]["route"];
 
@@ -64,6 +64,8 @@ async function loadSubwayData(provider, element) {
             severity = 3;
         } else if (cause == "CANCELLATION") {
             severity = 5;
+        } else if (cause == "SERVICE_CHANGE") {
+            severity = 4;
         } else {
             console.warn(`${cause} has no severity value`);
         }
