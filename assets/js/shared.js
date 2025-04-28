@@ -1,0 +1,21 @@
+/**
+ * How we measure how fucked your commute is
+ */
+const Fuckedness = Object.freeze({
+    NotFucked: ("not fucked"),
+    ALittleFucked: ("a little fucked"),
+    Fucked: ("fucked"),
+    TurboFucked: ("turbo fucked")
+});
+
+function scoreToFuckedness(score) {
+    if (score == 0) {
+        return Fuckedness.NotFucked;
+    } else if (score >= 3) {
+        return Fuckedness.ALittleFucked;
+    } else if (score >= 6) {
+        return Fuckedness.Fucked;
+    } else {
+        return Fuckedness.TurboFucked;
+    }
+}
