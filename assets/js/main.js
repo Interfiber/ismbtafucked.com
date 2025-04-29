@@ -1,5 +1,6 @@
 (async () => {
     let provider = new MBTADataProvider();
 
-    loadSubwayData(provider, document.querySelector("#subway-data"));
+    await loadSubwayData(provider, document.querySelector("#subway-data"));
+    await loadCommuterRailData(provider, document.querySelector("#cr-data"));
 })();

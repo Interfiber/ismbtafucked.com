@@ -13,9 +13,15 @@ class MBTADataProvider {
      * @param {string} url 
      */
     async makeHttp(url) {
-        return await fetch(`${this.rootURL}/${url}`, {
+        let res = await fetch(`${this.rootURL}/${url}`, {
             method: "GET"
         });
+
+        if (res.status != 200) {
+            throw new Error(`Failed to make HTTP request to ${url} got HTTP ${res.status}: ${res.statusText}`)
+        }
+
+        return res;
     }
 
     /**

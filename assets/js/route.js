@@ -1,15 +1,5 @@
-const SUBWAY_ROUTES = [
-    "Red",
-    "Orange",
-    "Blue",
-    "Green-B",
-    "Green-C",
-    "Green-D",
-    "Green-E"
-];
-
 /**
- * 
+ * Convert an array to a filter list
  * @param {string} filter
  * @param {Array} array 
  */
@@ -25,21 +15,17 @@ function arrayToFilter(filter, array) {
 }
 
 /**
- * Load subway alerts 
- * Unlike the commuter rail we measure fuckedness by the amount of active service alerts a line has
- * This includes shutdowns, but they contribute less to the fucked counter since they are planned
- * See docs/README.md for more info
- * @param {MBTADataProvider} provider 
- * @param {HTMLElement} element
+ * Load route data for the given list of routes
+ * @param {Array<string>} routes
  */
-async function loadSubwayData(provider, element) {
-    let alertData = await provider.getAlerts(`${arrayToFilter('filter[route]', SUBWAY_ROUTES)}`);
+async function loadRouteData(provider, routes) {
+    let alertData = await provider.getAlerts(`${arrayToFilter('filter[route]', routes)}`);
     let alerts = alertData["data"];
 
     let perRouteStats = new Map();
     let perRouteAlerts = new Map();
 
-    for (let i = 0; i < alerts.length; i++) {
+    for (var i = 0; i < alerts.length; i++) {
         let alert = alerts[i];
         let attrs = alert["attributes"];
         let informed = attrs["informed_entity"];
@@ -70,10 +56,12 @@ async function loadSubwayData(provider, element) {
             console.warn(`${cause} has no severity value`);
         }
 
+        if (severity == 0) continue;
+
         console.log(`${cause} = ${severity}`);
 
         if (perRouteStats.has(route)) {
-            perRouteStats.get(route) += severity;
+            perRouteStats.set(route, perRouteStats.get(route) + severity)
             perRouteAlerts.get(route).push(attrs["short_header"]);
         } else {
             perRouteStats.set(route, severity);
@@ -82,18 +70,44 @@ async function loadSubwayData(provider, element) {
     }
 
     let final = "";
-    perRouteStats.forEach((value, key) => {
+    for (let routeI in routes) {
+        let route = routes[routeI];
+
+        if (!perRouteStats.has(route)) {
+            final += `<h3>The ${route} line is ${scoreToFuckedness(0)}</h3>\n`;
+            final += "<p></p>\n";
+
+            continue;
+        }
+
         let finalRouteAlerts = "<ul>";
 
-        perRouteAlerts.get(key).forEach(key => {
-            finalRouteAlerts += `<li>${key}</li>`;
-        });
+        for (let alertI of perRouteAlerts.get(route)) {
+            finalRouteAlerts += `<li>${alertI}</li>`;
+        }
         finalRouteAlerts += "</ul>";
 
-        final += `<h3>The ${key} line is ${scoreToFuckedness(value)}</h3>\n`;
-        final += `${finalRouteAlerts}`;
-        console.log(perRouteAlerts);
-    });
+        let score = perRouteStats.get(route);
+        let fucked = scoreToFuckedness(score);
 
-    element.innerHTML = final;
+        let cssClass = "alert-success";
+
+        if (fucked == Fuckedness.ALittleFucked) {
+            cssClass = "alert-secondary";
+        } else if (fucked == Fuckedness.Fucked) {
+            cssClass = "alert-warning";
+        } else if (fucked == Fuckedness.TurboFucked) {
+            cssClass = "alert-danger";
+        }
+
+        final += `<p></p><div class="alert ${cssClass}" role="alert">
+        <h4 class="alert-heading">The ${route} line is ${fucked}</h4>
+        <p>${finalRouteAlerts}</p>
+        <hr>
+        <p class="mb-0">Final score: ${score}</p>
+        </div><p></p>\n`;
+        if (score == 0) continue; 
+    }
+
+    return final;
 }

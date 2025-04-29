@@ -11,11 +11,20 @@ const Fuckedness = Object.freeze({
 function scoreToFuckedness(score) {
     if (score == 0) {
         return Fuckedness.NotFucked;
+    } else if (score > 9) {
+        return Fuckedness.TurboFucked;
+    } else if (score >= 8) {
+        return Fuckedness.Fucked;
     } else if (score >= 3) {
         return Fuckedness.ALittleFucked;
-    } else if (score >= 6) {
-        return Fuckedness.Fucked;
-    } else {
-        return Fuckedness.TurboFucked;
     }
+    // if (score == 0) {
+    //     return Fuckedness.NotFucked;
+    // } else if (score > 8) {
+    //     return Fuckedness.Fucked;
+    // } else if (score >= 3) {
+    //     return Fuckedness.ALittleFucked;
+    // } else {
+    //     return Fuckedness.TurboFucked;
+    // }
 }
