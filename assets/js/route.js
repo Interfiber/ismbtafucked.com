@@ -59,8 +59,6 @@ async function loadRouteData(provider, routes, readable) {
 
         if (severity == 0) continue;
 
-        console.log(`${cause} = ${severity}`);
-
         if (perRouteStats.has(route)) {
             perRouteStats.set(route, perRouteStats.get(route) + severity)
             perRouteAlerts.get(route).push(attrs["short_header"]);
@@ -74,6 +72,8 @@ async function loadRouteData(provider, routes, readable) {
     for (let routeI in routes) {
         let route = routes[routeI];
         let name = readable[routeI];
+
+        console.log(`${route} = ${perRouteStats.get(route)}`);
 
         if (!perRouteStats.has(route)) {
             final += `<p></p><div class="alert alert-success" role="alert">
