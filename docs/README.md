@@ -19,5 +19,5 @@ For each category (Subway, or Commuter Rail) we query all of the active alerts f
 |-------|------------|
 | 0     | Not fucked |
 | >= 3  | A little fucked |
-| >= 8  | Fucked |
-| >= 9  | Turbo Fucked |
+| >= 6  | Fucked |
+| >= 15  | Turbo Fucked |
