@@ -13,3 +13,7 @@ body {
 .question {
     color: yellow;
 }
+
+a {
+    text-decoration: none;
+}
