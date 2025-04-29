@@ -74,8 +74,9 @@ async function loadRouteData(provider, routes) {
         let route = routes[routeI];
 
         if (!perRouteStats.has(route)) {
-            final += `<h3>The ${route} line is ${scoreToFuckedness(0)}</h3>\n`;
-            final += "<p></p>\n";
+            final += `<p></p><div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">The ${route} line is not fucked 😀</h4>
+        </div><p></p>\n`;
 
             continue;
         }
@@ -91,22 +92,26 @@ async function loadRouteData(provider, routes) {
         let fucked = scoreToFuckedness(score);
 
         let cssClass = "alert-success";
+        let emoji = "";
 
         if (fucked == Fuckedness.ALittleFucked) {
             cssClass = "alert-secondary";
+            emoji = "😐";
         } else if (fucked == Fuckedness.Fucked) {
             cssClass = "alert-warning";
+            emoji = "😞";
         } else if (fucked == Fuckedness.TurboFucked) {
             cssClass = "alert-danger";
+            emoji = "😡";
         }
 
         final += `<p></p><div class="alert ${cssClass}" role="alert">
-        <h4 class="alert-heading">The ${route} line is ${fucked}</h4>
+        <h4 class="alert-heading">The ${route} line is ${fucked} ${emoji}</h4>
         <p>${finalRouteAlerts}</p>
         <hr>
         <p class="mb-0">Final score: ${score}</p>
         </div><p></p>\n`;
-        if (score == 0) continue; 
+        if (score == 0) continue;
     }
 
     return final;
