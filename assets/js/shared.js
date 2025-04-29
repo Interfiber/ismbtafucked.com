@@ -11,7 +11,7 @@ const Fuckedness = Object.freeze({
 function scoreToFuckedness(score) {
     if (score == 0) {
         return Fuckedness.NotFucked;
-    } else if (score >= 15) {
+    } else if (score >= 12) {
         return Fuckedness.TurboFucked;
     } else if (score >= 6) {
         return Fuckedness.Fucked;
