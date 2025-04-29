@@ -4,7 +4,7 @@
  * @param {HTMLElement} element
  */
 async function loadSubwayData(provider, element) {
-    element.innerHTML = await loadRouteData(provider, SUBWAY_ROUTES);
+    element.innerHTML = await loadRouteData(provider, SUBWAY_ROUTES, SUBWAY_ROUTES_NAMES);
 }
 
 /**
@@ -13,5 +13,5 @@ async function loadSubwayData(provider, element) {
  * @param {HTMLElement} element
  */
 async function loadCommuterRailData(provider, element) {
-    element.innerHTML = await loadRouteData(provider, COMMUTER_RAIL_ROUTES);
+    element.innerHTML = await loadRouteData(provider, COMMUTER_RAIL_ROUTES, COMMUTER_RAIL_ROUTES_NAMES);
 }

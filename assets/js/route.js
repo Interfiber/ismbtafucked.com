@@ -17,8 +17,9 @@ function arrayToFilter(filter, array) {
 /**
  * Load route data for the given list of routes
  * @param {Array<string>} routes
+ * @param {Array<string>} readable
  */
-async function loadRouteData(provider, routes) {
+async function loadRouteData(provider, routes, readable) {
     let alertData = await provider.getAlerts(`${arrayToFilter('filter[route]', routes)}`);
     let alerts = alertData["data"];
 
@@ -72,10 +73,11 @@ async function loadRouteData(provider, routes) {
     let final = "";
     for (let routeI in routes) {
         let route = routes[routeI];
+        let name = readable[routeI];
 
         if (!perRouteStats.has(route)) {
             final += `<p></p><div class="alert alert-success" role="alert">
-        <h4 class="alert-heading">The ${route} line is not fucked 😀</h4>
+        <h4 class="alert-heading">The ${name} line is not fucked 😀</h4>
         </div><p></p>\n`;
 
             continue;
@@ -106,7 +108,7 @@ async function loadRouteData(provider, routes) {
         }
 
         final += `<p></p><div class="alert ${cssClass}" role="alert">
-        <h4 class="alert-heading">The ${route} line is ${fucked} ${emoji}</h4>
+        <h4 class="alert-heading">The ${name} line is ${fucked} ${emoji}</h4>
         <p>${finalRouteAlerts}</p>
         <hr>
         <p class="mb-0">Final score: ${score}</p>

@@ -1,15 +1,23 @@
 # Documentation
 
-## Subway alerts to fucked level
-Since the subway is so unpredictable we can't really estimate if trains are running late since some trains are added into the schedule in order to make up for service loss due to a broken train, etc. Instead we get the number of active service alerts for each line. Planned service alerts such as shutdowns, or station closures contribute `+1` to the fucked counter. Unplanned distruptions such as disabled trains, signal failures, etc contribute `+2`
+## How it works
+For each category (Subway, or Commuter Rail) we query all of the active alerts for every line. Then we loop over the list of alerts, each type corresponds to a given `score` value. After every alert has been looped over we can convert this to a fuckedness value. Some helpful tables are located below
 
-## Commuter rail fucked level
-Unlike the subway commuter rail trains ALWAYS have a schedule. We calculate the fuckedness by querying the schedules, and predictions for each line. For each active vehicle we can determine how far behind schedule it is.
-| Schedule Range    | +/- fuckedness |
-| -------- | ------- |
-| 0-5      | +0      |
-| 5-10     | +2      |
-| 10-20    | +3      |
-| >20      | +5      |
+### Alert type to score
+| Type      | Score   |
+| ----------|-------- |
+| DELAY     | 3       |
+| SUSPENSION| 4       |
+| STOP_CLOSURE     | 4    |
+| SHUTTLE | 4 |
+| DETOUR | 3 |
+| CANCELLATION | 5 |
+| SERVICE_CHANGE | 4 |
 
-## Fucked level to text
+### Score to fuckedness
+| Score | Fuckedness |
+|-------|------------|
+| 0     | Not fucked |
+| >= 3  | A little fucked |
+| >= 8  | Fucked |
+| >= 9  | Turbo Fucked |
