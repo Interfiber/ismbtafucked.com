@@ -111,7 +111,7 @@ async function loadRouteData(provider, routes, readable) {
         <h4 class="alert-heading">The ${name} line is ${fucked} ${emoji}</h4>
         <p>${finalRouteAlerts}</p>
         <hr>
-        <p class="mb-0">Final score: ${score}</p>
+        <p class="mb-0">See <a href="https://mbta.com/schedules/${route}">this</a> for offical information</p>
         </div><p></p>\n`;
         if (score == 0) continue;
     }
