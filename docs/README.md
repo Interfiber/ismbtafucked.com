@@ -6,9 +6,9 @@ For each category (Subway, or Commuter Rail) we query all of the active alerts f
 ### Alert type to score
 | Type      | Score   |
 | ----------|-------- |
-| DELAY     | 3       |
-| SUSPENSION| 4       |
-| STOP_CLOSURE     | 4    |
+| DELAY     | 4       |
+| SUSPENSION| 5       |
+| STOP_CLOSURE     | 2    |
 | SHUTTLE | 4 |
 | DETOUR | 3 |
 | CANCELLATION | 5 |

@@ -40,11 +40,11 @@ async function loadRouteData(provider, routes, readable) {
         let cause = attrs["effect"];
 
         if (cause == "DELAY") {
-            severity = 3;
+            severity = 4;
         } else if (cause == "SUSPENSION") {
-            severity = 4;
+            severity = 5;
         } else if (cause == "STOP_CLOSURE" || cause == "STATION_CLOSURE") {
-            severity = 4;
+            severity = 2;
         } else if (cause == "SHUTTLE") {
             severity = 4;
         } else if (cause == "DETOUR") {
