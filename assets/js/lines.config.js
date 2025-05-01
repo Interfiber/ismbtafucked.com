@@ -48,7 +48,7 @@ const COMMUTER_RAIL_ROUTES = [
 
     // South side
     "CR-Providence",
-    "CR-Newbedford",
+    "CR-NewBedford",
     "CR-Franklin",
     "CR-Greenbush",
     "CR-Needham",
