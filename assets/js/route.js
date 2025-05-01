@@ -102,7 +102,7 @@ async function loadRouteData(provider, routes, readable) {
         } else if (fucked == Fuckedness.Fucked) {
             cssClass = "alert-warning";
             emoji = "😞";
-        } else if (fucked == Fuckedness.TurboFucked) {
+        } else if (fucked == Fuckedness.ReallyFucked || fucked == Fuckedness.TurboFucked) {
             cssClass = "alert-danger";
             emoji = "😡";
         }
